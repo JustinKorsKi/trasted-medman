@@ -1,6 +1,5 @@
 <?php
 require_once 'includes/config.php';
-require_once 'includes/mailer.php';
 
 if(isset($_SESSION['user_id'])) {
     header('Location: dashboard.php');
@@ -45,10 +44,19 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                   VALUES ('$username', '$email', '$hashed_password', '$full_name', '$phone', '$role',
                   '$verification_token', '$expires')";
             if(mysqli_query($conn, $q)) {
-                if(sendVerificationEmail($email, $verification_token, $username)) {
+                // Load mailer only when needed and with timeout protection
+                $emailSent = false;
+                try {
+                    require_once 'includes/mailer.php';
+                    $emailSent = sendVerificationEmail($email, $verification_token, $username);
+                } catch (Exception $e) {
+                    error_log("Email failed: " . $e->getMessage());
+                }
+
+                if($emailSent) {
                     $success = 'Account created! Please check your email to verify your account.';
                 } else {
-                    $success = 'Account created! But we could not send verification email. Please contact support.';
+                    $success = 'Account created! You can login now. (Verification email could not be sent)';
                 }
             } else {
                 $error = 'Registration failed. Please try again.';
