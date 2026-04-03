@@ -12,5 +12,8 @@ COPY . /var/www/html/
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/
 
-# Start Apache on Railway's PORT
-CMD sed -i "s/80/$PORT/g" /etc/apache2/ports.conf /etc/apache2/sites-enabled/000-default.conf && apache2-foreground
+# Create startup script
+RUN echo '#!/bin/bash\nsed -i "s/80/${PORT}/g" /etc/apache2/ports.conf /etc/apache2/sites-enabled/000-default.conf\napache2-foreground' > /start.sh
+RUN chmod +x /start.sh
+
+CMD ["/bin/bash", "/start.sh"]
