@@ -65,7 +65,7 @@ define('SMTP_HOST', getenv('SMTP_HOST') ?: 'smtp-relay.brevo.com');
 define('SMTP_PORT', intval(getenv('SMTP_PORT') ?: 587));
 define('SMTP_USER', getenv('SMTP_USER') ?: 'your-email@smtp-brevo.com');
 define('SMTP_PASS', getenv('SMTP_PASS') ?: 'your-smtp-key-here');
-define('SMTP_FROM', 'justinescalera042@gmail.com');
+define('SMTP_FROM', getenv('SMTP_FROM') ?: 'justinescalera042@gmail.com');
 define('SMTP_FROM_NAME', 'Trusted Midman');
 
 // ============================================
