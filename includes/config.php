@@ -44,6 +44,11 @@ if(strpos($host_name, 'localhost') !== false) {
     $base_url .= '/trusted-midman';
 }
 
+// BASE_URL for email verification links
+if (!defined('BASE_URL')) {
+    define('BASE_URL', getenv('BASE_URL') ?: $base_url);
+}
+
 define('GOOGLE_CLIENT_ID', getenv('GOOGLE_CLIENT_ID') ?: 'your-google-client-id-here');
 define('GOOGLE_CLIENT_SECRET', getenv('GOOGLE_CLIENT_SECRET') ?: 'your-google-client-secret-here');
 define('GOOGLE_REDIRECT_URI', $base_url . '/google-callback.php');
@@ -257,7 +262,7 @@ function isSeller() {
 }
 
 function isBuyer() {
-    return isset($_SESSION['role']) && $_SESSION['role'] == 'buyer';
+    return isset($_SESSION['role'] ) && $_SESSION['role'] == 'buyer';
 }
 
 function requireRole($role) {
