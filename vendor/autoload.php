@@ -12,7 +12,6 @@ spl_autoload_register(function ($class) {
     // Does the class use the namespace prefix?
     $len = strlen($prefix);
     if (strncmp($prefix, $class, $len) !== 0) {
-        // No, move to the next registered autoloader
         return;
     }
     
