@@ -594,12 +594,6 @@ $_SESSION['csrf_token'] = $csrf_token;
 
             <div class="divider">or continue with</div>
 
-            <div class="socials">
-                <a href="google-login.php"   class="social-btn"><i class="fab fa-google"></i> Google</a>
-                <a href="facebook-login.php" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="#"                  class="social-btn"><i class="fab fa-discord"></i> Discord</a>
-            </div>
-
             <div class="card-foot">
                 Don't have an account? <a href="register.php">Create one free</a>
             </div>
