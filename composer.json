@@ -1,9 +1,14 @@
 {
-    "name": "trusted-midman/trusted-midman",
+    "name": "trusted-midman/trastedmedman",
     "description": "Secure escrow platform for gaming item trades",
     "type": "project",
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "ext-mysqli": "*",
+        "ext-pdo_mysql": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-curl": "*"
     },
     "config": {
         "platform": {
