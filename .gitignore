@@ -1,49 +1,27 @@
-# Trusted Midman - Git Ignore File
+# Environment variables
+.env
+.env.local
+.env.*.local
 
-# PHP files (keep these)
-!*.php
-
-# Database
-*.sql
-*.db
-*.sqlite
+# Composer
+vendor/
+composer.lock
 
 # Logs
 *.log
-error.log
-access.log
+email_log.txt
 
-# Temporary files
-*.tmp
-*.temp
-*.cache
-
-# IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# OS files
+# OS
 .DS_Store
 Thumbs.db
 
-# Config files with sensitive data
-includes/config.php
-.env
-.env.local
-
-# Upload directories
-uploads/
-images/uploads/
-
-# Node modules (if using npm)
-node_modules/
-
-# Composer (if using)
-vendor/
-
-# Backup files
-*.bak
-*.backup
+# Session files
+session/
+tmp/
+cache/
