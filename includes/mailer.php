@@ -40,7 +40,7 @@ function sendEmail($to, $subject, $body) {
         $mail->SMTPAuth   = true;                                 // Enable SMTP authentication
         $mail->Username   = SMTP_USER;                            // SMTP username
         $mail->Password   = SMTP_PASS;                            // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;       // Enable TLS encryption
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;       // Enable TLS encryption
         $mail->Port       = SMTP_PORT;                            // TCP port to connect to
         
         // Recipients
