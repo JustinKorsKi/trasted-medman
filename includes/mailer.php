@@ -1,72 +1,45 @@
 <?php
-// First, include config.php to get the email constants
 require_once __DIR__ . '/config.php';
-
-if (!defined('SMTP_HOST')) {
-    define('SMTP_HOST', 'smtp.gmail.com');
-}
-if (!defined('SMTP_PORT')) {
-    define('SMTP_PORT', 587);
-}
-if (!defined('SMTP_USER')) {
-    define('SMTP_USER', '');
-}
-if (!defined('SMTP_PASS')) {
-    define('SMTP_PASS', '');
-}
-if (!defined('SMTP_FROM')) {
-    define('SMTP_FROM', 'no-reply@trustedmidman.local');
-}
-if (!defined('SMTP_FROM_NAME')) {
-    define('SMTP_FROM_NAME', 'Trusted Midman');
-}
-
-// Then include PHPMailer autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 function sendEmail($to, $subject, $body) {
     $mail = new PHPMailer(true);
-    
+
     try {
-        // Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Disable debug output
-        $mail->isSMTP(); // Send using SMTP
-        $mail->Timeout = 10;
-        $mail->Host       = SMTP_HOST;                            // Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                 // Enable SMTP authentication
-        $mail->Username   = SMTP_USER;                            // SMTP username
-        $mail->Password   = SMTP_PASS;                            // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;       // Enable TLS encryption
-        $mail->Port       = SMTP_PORT;                            // TCP port to connect to
-        
-        // Recipients
+        $mail->isSMTP();
+        $mail->Host       = SMTP_HOST;
+        $mail->SMTPAuth   = true;
+        $mail->Username   = SMTP_USER;
+        $mail->Password   = SMTP_PASS;
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = SMTP_PORT;
+        $mail->Timeout    = 10;
+        $mail->SMTPDebug  = 2;  // ← set to 0 when working
+
         $mail->setFrom(SMTP_FROM, SMTP_FROM_NAME);
         $mail->addAddress($to);
-        
-        // Content
-        $mail->isHTML(true);                                       // Set email format to HTML
+
+        $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body    = $body;
         $mail->AltBody = strip_tags($body);
-        
+
         $mail->send();
         return true;
+
     } catch (Exception $e) {
-        error_log("Email could not be sent. Error: {$mail->ErrorInfo}");
+        error_log("Email failed: " . $mail->ErrorInfo);
         return false;
     }
 }
 
 function sendVerificationEmail($email, $token, $username) {
     $subject = "Verify Your Email - Trusted Midman";
-    
-    // Use BASE_URL constant instead of hardcoded localhost
-    $verification_link = BASE_URL . "/verify-email.php?token=$token";
-    
+    $verification_link = BASE_URL . "/verify-email.php?token=" . urlencode($token);
+
     $body = "
     <html>
     <head>
@@ -81,28 +54,21 @@ function sendVerificationEmail($email, $token, $username) {
     </head>
     <body>
         <div class='container'>
-            <div class='header'>
-                <h2>Welcome to Trusted Midman!</h2>
-            </div>
+            <div class='header'><h2>Welcome to Trusted Midman!</h2></div>
             <div class='content'>
                 <p>Hello <strong>$username</strong>,</p>
-                <p>Thank you for registering! Please verify your email address by clicking the button below:</p>
+                <p>Please verify your email address by clicking the button below:</p>
                 <p style='text-align: center;'>
                     <a href='$verification_link' class='button'>Verify Email Address</a>
                 </p>
-                <p>Or copy and paste this link:</p>
-                <p><a href='$verification_link'>$verification_link</a></p>
-                <p>This link will expire in 24 hours.</p>
-                <p>If you didn't create an account, you can ignore this email.</p>
+                <p>Or copy this link: <a href='$verification_link'>$verification_link</a></p>
+                <p>This link expires in 24 hours.</p>
             </div>
-            <div class='footer'>
-                <p>&copy; 2026 Trusted Midman. All rights reserved.</p>
-            </div>
+            <div class='footer'><p>&copy; 2026 Trusted Midman. All rights reserved.</p></div>
         </div>
     </body>
-    </html>
-    ";
-    
+    </html>";
+
     return sendEmail($email, $subject, $body);
 }
 ?>
