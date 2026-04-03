@@ -3,10 +3,6 @@
 .env.local
 .env.*.local
 
-# Composer
-vendor/
-composer.lock
-
 # Logs
 *.log
 email_log.txt
