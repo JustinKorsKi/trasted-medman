@@ -64,7 +64,7 @@ define('FACEBOOK_REDIRECT_URI', $base_url . '/facebook-callback.php');
 define('SMTP_HOST', getenv('SMTP_HOST') ?: 'smtp-relay.brevo.com');
 define('SMTP_PORT', intval(getenv('SMTP_PORT') ?: 587));
 define('SMTP_USER', getenv('SMTP_USER') ?: 'a70904001@smtp-brevo.com');
-define('SMTP_PASS', getenv('SMTP_PASS') ?: 'xsmtpsib-186f4334f8d024e91f8bd4a9e554427e6043bb7028cb09b37c5e57cf95525c0a-cWRGWuNeTWxEwypT');
+define('SMTP_PASS', getenv('SMTP_PASS') ?: 'xsmtpsib-186f4334f8d024e91f8bd4a9e554427e6043bb7028cb09b37c5e57cf95525c0a-2j3x4ay0bgDwezdU');
 define('SMTP_FROM', getenv('SMTP_FROM') ?: 'justinescalera042@gmail.com');
 define('SMTP_FROM_NAME', 'Trusted Midman');
 
