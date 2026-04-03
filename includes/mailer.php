@@ -34,7 +34,8 @@ function sendEmail($to, $subject, $body) {
     try {
         // Server settings
         $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Disable debug output
-        $mail->isSMTP();                                          // Send using SMTP
+        $mail->isSMTP(); // Send using SMTP
+        $mail->Timeout = 10;
         $mail->Host       = SMTP_HOST;                            // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                 // Enable SMTP authentication
         $mail->Username   = SMTP_USER;                            // SMTP username
