@@ -63,7 +63,8 @@ function sendEmail($to, $subject, $body) {
 function sendVerificationEmail($email, $token, $username) {
     $subject = "Verify Your Email - Trusted Midman";
     
-    $verification_link = "http://localhost/trusted-midman/verify-email.php?token=$token";
+    // Use BASE_URL constant instead of hardcoded localhost
+    $verification_link = BASE_URL . "/verify-email.php?token=$token";
     
     $body = "
     <html>
@@ -71,9 +72,9 @@ function sendVerificationEmail($email, $token, $username) {
         <style>
             body { font-family: Arial, sans-serif; line-height: 1.6; }
             .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; }
+            .header { background: linear-gradient(135deg, #f0a500 0%, #d4920a 100%); color: white; padding: 20px; text-align: center; }
             .content { padding: 20px; background: #f9f9f9; }
-            .button { display: inline-block; padding: 10px 20px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; }
+            .button { display: inline-block; padding: 10px 20px; background: #f0a500; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
             .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
         </style>
     </head>
@@ -89,7 +90,7 @@ function sendVerificationEmail($email, $token, $username) {
                     <a href='$verification_link' class='button'>Verify Email Address</a>
                 </p>
                 <p>Or copy and paste this link:</p>
-                <p>$verification_link</p>
+                <p><a href='$verification_link'>$verification_link</a></p>
                 <p>This link will expire in 24 hours.</p>
                 <p>If you didn't create an account, you can ignore this email.</p>
             </div>
