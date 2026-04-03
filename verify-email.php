@@ -94,7 +94,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Email — Trusted Midman</title>
+    <title>Verify Email â€” Trusted Midman</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -141,7 +141,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
             overflow-x: hidden;
         }
 
-        /* ── BG ── */
+        /* â”€â”€ BG â”€â”€ */
         .bg-glow1 {
             position: fixed; top: -100px; right: -100px;
             width: 500px; height: 500px;
@@ -164,7 +164,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
             pointer-events: none; z-index: 0;
         }
 
-        /* ── NAV ── */
+        /* â”€â”€ NAV â”€â”€ */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 200;
             background: rgba(13,15,20,0.82);
@@ -203,7 +203,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
         .nav-btn-gold:hover { background: #ffb822; transform: translateY(-1px); }
         @media (max-width: 600px) { .nav-link { display: none; } }
 
-        /* ── CARD ── */
+        /* â”€â”€ CARD â”€â”€ */
         .card {
             position: relative; z-index: 1;
             width: 100%; max-width: 520px;
@@ -217,7 +217,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
         }
         @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
 
-        /* ── CARD HEAD ── */
+        /* â”€â”€ CARD HEAD â”€â”€ */
         .card-head {
             padding: 32px 36px 26px;
             border-bottom: 1px solid var(--border);
@@ -251,10 +251,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
         .head-title span { color: var(--gold); }
         .head-sub { font-size: 0.85rem; color: var(--text-muted); position: relative; z-index: 1; }
 
-        /* ── CARD BODY ── */
+        /* â”€â”€ CARD BODY â”€â”€ */
         .card-body { padding: 26px 36px 32px; }
 
-        /* ── ALERTS ── */
+        /* â”€â”€ ALERTS â”€â”€ */
         .alert {
             display: flex; align-items: flex-start; gap: 10px;
             border-radius: var(--radius-sm); padding: 12px 14px;
@@ -265,7 +265,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
         .alert-success { background: var(--teal-dim); border: 1px solid rgba(0,212,170,0.22);   color: var(--teal); }
         .alert-info    { background: var(--gold-dim); border: 1px solid rgba(240,165,0,0.22);   color: var(--gold); }
 
-        /* ── VERIFICATION ICON ── */
+        /* â”€â”€ VERIFICATION ICON â”€â”€ */
         .verify-icon {
             text-align: center;
             margin: 20px 0;
@@ -275,7 +275,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
         .verify-icon.error { color: var(--red); }
         .verify-icon.pending { color: var(--gold); }
 
-        /* ── FORM ── */
+        /* â”€â”€ FORM â”€â”€ */
         .form-group { margin-bottom: 16px; }
 
         .form-label {
@@ -309,7 +309,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
             box-shadow: 0 0 0 3px var(--gold-dim);
         }
 
-        /* ── BUTTON ── */
+        /* â”€â”€ BUTTON â”€â”€ */
         .btn-submit {
             width: 100%; padding: 12px 20px; margin-top: 6px;
             background: var(--gold); color: #0d0f14;
@@ -330,7 +330,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
         }
         .btn-secondary:hover { background: var(--surface2); transform: translateY(-2px); }
 
-        /* ── FOOTER ── */
+        /* â”€â”€ FOOTER â”€â”€ */
         .card-foot { text-align: center; font-size: 0.83rem; color: var(--text-muted); margin-top: 20px; }
         .card-foot a { color: var(--gold); text-decoration: none; font-weight: 600; transition: color 0.2s; }
         .card-foot a:hover { color: #ffb822; }
@@ -385,7 +385,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
                     <?php echo htmlspecialchars($success); ?>
                 </div>
                 <div class="card-foot">
-                    <a href="login.php">Proceed to Login →</a>
+                    <a href="login.php">Proceed to Login â†’</a>
                 </div>
             <?php endif; ?>
 
