@@ -499,7 +499,7 @@ $display_name = $_SESSION['full_name'] ?? $_SESSION['username'];
                         default      => 'fa-paperclip'
                     };
             ?>
-                <div class="msg-row <?php echo $is_me ? 'me' : 'them'; ?>">
+                <div class="msg-row <?php echo $is_me ? 'me' : 'them'; ?>" data-msg-id="<?php echo $msg['id']; ?>">
                     <?php if(!$is_me): ?>
                     <div class="msg-ava" style="background:<?php echo $bg; ?>;color:<?php echo $clr; ?>;">
                         <?php echo strtoupper(substr($msg['username'],0,2)); ?>
@@ -615,7 +615,86 @@ $display_name = $_SESSION['full_name'] ?? $_SESSION['username'];
         fpName.textContent = '';
     }
 
-    setTimeout(() => location.reload(), 5000);
+    // ── AJAX POLLING — no more page reloads! ──
+    const CHAT_ID    = <?php echo (int)$transaction['chat_id']; ?>;
+    const MY_ID      = <?php echo (int)$user_id; ?>;
+    const roleColors = <?php echo json_encode($role_colors); ?>;
+    const roleBgs    = <?php echo json_encode($role_bgs); ?>;
+
+    // Track last message ID already on page
+    let lastId = 0;
+    document.querySelectorAll('.msg-row[data-msg-id]').forEach(row => {
+        const id = parseInt(row.dataset.msgId || 0);
+        if(id > lastId) lastId = id;
+    });
+
+    function escapeHtml(text) {
+        return String(text)
+            .replace(/&/g,'&amp;')
+            .replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;')
+            .replace(/"/g,'&quot;');
+    }
+
+    function formatTime(dateStr) {
+        const d = new Date(dateStr.replace(' ','T'));
+        let h = d.getHours(), m = d.getMinutes();
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        return h + ':' + String(m).padStart(2,'0') + ' ' + ampm;
+    }
+
+    function buildBubble(msg) {
+        const isMe = parseInt(msg.user_id) === MY_ID;
+        const clr  = roleColors[msg.role] || 'var(--text-muted)';
+        const bg   = roleBgs[msg.role]    || 'var(--surface2)';
+
+        const metaHtml = isMe
+            ? `<div class="msg-meta"><span>${formatTime(msg.created_at)}</span></div>`
+            : `<div class="msg-meta">
+                <span class="msg-sender" style="color:${clr}">${escapeHtml(msg.username)}</span>
+                <span style="color:var(--text-dim)">·</span>
+                <span>${msg.role.charAt(0).toUpperCase()+msg.role.slice(1)}</span>
+                <span style="color:var(--text-dim)">·</span>
+                <span>${formatTime(msg.created_at)}</span>
+               </div>`;
+
+        const avaHtml = isMe ? '' : `
+            <div class="msg-ava" style="background:${bg};color:${clr};">
+                ${escapeHtml(msg.username.substring(0,2).toUpperCase())}
+            </div>`;
+
+        const msgText = msg.message ? escapeHtml(msg.message).replace(/\n/g,'<br>') : '';
+
+        return `<div class="msg-row ${isMe?'me':'them'}" data-msg-id="${msg.id}">
+            ${avaHtml}
+            <div class="msg-body">
+                ${metaHtml}
+                <div class="msg-bubble">${msgText}</div>
+            </div>
+        </div>`;
+    }
+
+    function fetchNewMessages() {
+        fetch(`chat-fetch.php?chat_id=${CHAT_ID}&last_id=${lastId}`)
+            .then(r => r.json())
+            .then(data => {
+                if(data.messages && data.messages.length > 0) {
+                    const wasAtBottom = area.scrollHeight - area.scrollTop - area.clientHeight < 60;
+                    const empty = area.querySelector('.empty-chat');
+                    if(empty) empty.remove();
+                    data.messages.forEach(msg => {
+                        area.insertAdjacentHTML('beforeend', buildBubble(msg));
+                        lastId = Math.max(lastId, parseInt(msg.id));
+                    });
+                    if(wasAtBottom) area.scrollTop = area.scrollHeight;
+                }
+            })
+            .catch(() => {});
+    }
+
+    // Poll every 3 seconds — smooth and no page flash!
+    setInterval(fetchNewMessages, 3000);
 </script>
 </body>
 </html>
