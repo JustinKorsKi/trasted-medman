@@ -436,12 +436,6 @@ $display_name = $_SESSION['full_name'] ?? $_SESSION['username'];
                 </a>
             </div>
         </header>
-
-        <div class="refresh-bar">
-            <span class="refresh-dot"></span>
-            Live chat — refreshes every 5 seconds
-        </div>
-
         <!-- MESSAGES -->
         <div class="messages-area" id="messagesArea">
             <?php
