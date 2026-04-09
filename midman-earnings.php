@@ -505,16 +505,6 @@ $display_name = $_SESSION['full_name'] ?? $_SESSION['username'];
                     <p>You earn a <strong>5% service fee</strong> on every transaction you handle.</p>
                     <p><strong>Example:</strong> $100 transaction = $5 earnings</p>
                 </div>
-                <div class="info-card">
-                    <h4><i class="fas fa-calendar-check"></i> Payment Schedule</h4>
-                    <p>Earnings are marked as <strong>"Pending"</strong> until the transaction is completed.</p>
-                    <p>Once the buyer confirms receipt, your fee becomes <strong>"Paid"</strong>.</p>
-                </div>
-                <div class="info-card">
-                    <h4><i class="fas fa-wallet"></i> Payout</h4>
-                    <p>Contact admin to request payout of your earnings.</p>
-                    <p><strong>Minimum payout:</strong> $50</p>
-                </div>
             </div>
         </div>
     </main>
