@@ -658,6 +658,10 @@ $back_link = match($role) { 'midman'=>'midman-dashboard.php', 'admin'=>'admin/tr
                             <a href="raise-dispute.php?transaction_id=<?php echo $transaction_id; ?>" class="btn btn-orange">
                                 <i class="fas fa-triangle-exclamation"></i> Raise Dispute
                             </a>
+                              <a href="generate-invoice.php?id=<?php echo $transaction_id; ?>" 
+   class="btn btn-ghost" target="_blank">
+    <i class="fas fa-file-invoice"></i> View Invoice
+</a>
                         <?php endif; ?>
                     </div>
                 </div>
