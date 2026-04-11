@@ -665,28 +665,32 @@ $back_link = match($role) { 'midman'=>'midman-dashboard.php', 'admin'=>'admin/tr
             <?php endif; ?>
 
             <!-- RATE CTA -->
-            <?php if($transaction['status']=='completed' && $transaction['midman_id'] && in_array($role,['buyer','seller'])): ?>
-            <div class="rate-cta" style="margin-top:18px;">
-                <div class="rate-cta-inner">
-                    <div class="rate-stars">★★★★★</div>
-                    <div class="rate-cta-title">Rate Your Midman</div>
-                    <div class="rate-cta-sub">How was your experience with <?php echo htmlspecialchars($transaction['midman_name']); ?>? Your feedback helps the community.</div>
-                    <?php if(!$has_rated): ?>
-                        <a href="rate-midman.php?id=<?php echo $transaction_id; ?>" class="btn btn-gold" style="margin:0 auto;">
-                            <i class="fas fa-star"></i> Leave a Rating
-                        </a>
-                    <?php else: ?>
-           <div style="margin-top:14px;">
+           <?php if($transaction['status']=='completed' && $transaction['midman_id'] && in_array($role,['buyer','seller'])): ?>
+<div class="rate-cta" style="margin-top:18px;">
+    <div class="rate-cta-inner">
+        <div class="rate-stars">★★★★★</div>
+        <div class="rate-cta-title">Rate Your Midman</div>
+        <div class="rate-cta-sub">How was your experience with <?php echo htmlspecialchars($transaction['midman_name']); ?>? Your feedback helps the community.</div>
+        <?php if(!$has_rated): ?>
+            <a href="rate-midman.php?id=<?php echo $transaction_id; ?>" class="btn btn-gold" style="margin:0 auto;">
+                <i class="fas fa-star"></i> Leave a Rating
+            </a>
+        <?php else: ?>
+            <div class="already-rated-box">
+                <i class="fas fa-circle-check"></i> You've already rated this midman — thank you!
+            </div>
+        <?php endif; ?>
+
+        <!-- Invoice always visible on completed transactions -->
+        <div style="margin-top:14px;">
             <a href="generate-invoice.php?id=<?php echo $transaction_id; ?>" class="btn btn-ghost" target="_blank">
                 <i class="fas fa-file-invoice"></i> View Invoice
             </a>
-                        <div class="already-rated-box">
-                            <i class="fas fa-circle-check"></i> You've already rated this midman — thank you!
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <?php endif; ?>
+        </div>
+
+    </div>
+</div>
+<?php endif; ?>
 
             <!-- DISPUTE INFO -->
             <?php if($has_dispute): ?>
